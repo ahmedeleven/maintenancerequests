@@ -1,0 +1,181 @@
+
+{% extends "requests/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+
+<div class="panel panel-primary panel-custom-primary">
+	<div class="panel-heading">Add Printer</div>
+	<div class="panel-body">
+
+		{% if printer %}
+			<form action="{% url 'printersEdit' printer.id %}" class="navbar-form navbar-left" role="form" id="EditPrinterForm" method="post" accept-charset="utf-8">
+		{% else %}
+			<form action="{% url 'printersAdd' %}" class="navbar-form navbar-left" role="form" id="AddPrinterForm" method="post" accept-charset="utf-8">
+		{% endif %}
+				{% csrf_token %}
+
+
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="input-group">
+							<span class="input-group-addon input-group-addon-custom" id="sizing-addon2">Model</span>
+    						{{ form.model|add_class:"form-control"|attr:"placeholder:Model" }}
+						</div>
+					</div>
+				</div>
+
+				<br />
+
+
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="input-group">
+							<span class="input-group-addon input-group-addon-custom" id="sizing-addon2">Brand</span>
+    						{{ form.brand|add_class:"form-control"|attr:"placeholder:Brand" }}
+						</div>
+					</div>
+				</div>
+
+				<br />
+
+
+
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="input-group">
+							<span class="input-group-addon input-group-addon-custom" id="sizing-addon2">Building</span>
+    						{{ form.building|add_class:"form-control"|attr:"placeholder:Building" }}
+						</div>
+					</div>
+				</div>
+
+				<br />
+
+
+
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="input-group">
+							<span class="input-group-addon input-group-addon-custom" id="sizing-addon2">Department</span>
+    						{{ form.department|add_class:"form-control"|attr:"placeholder:Department" }}
+						</div>
+					</div>
+				</div>
+
+				<br />
+
+
+
+
+
+
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="input-group">
+							<span class="input-group-addon input-group-addon-custom" id="sizing-addon2">Floor</span>
+    						{{ form.floor|add_class:"form-control"|attr:"placeholder:Floor" }}
+						</div>
+					</div>
+				</div>
+
+				<br />
+
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="input-group">
+							<span class="input-group-addon input-group-addon-custom" id="sizing-addon2">Room</span>
+    						{{ form.room|add_class:"form-control"|attr:"placeholder:Room" }}
+						</div>
+					</div>
+				</div>
+
+				<br />
+
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="input-group">
+							<span class="input-group-addon input-group-addon-custom" id="sizing-addon2">IP</span>
+    						{{ form.ip|add_class:"form-control"|attr:"placeholder:IP" }}
+						</div>
+					</div>
+				</div>
+
+				<br />
+
+
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="input-group">
+							<span class="input-group-addon input-group-addon-custom" id="sizing-addon2">Barcode</span>
+    						{{ form.barcode|add_class:"form-control"|attr:"placeholder:Barcode" }}
+						</div>
+					</div>
+				</div>
+
+				<br />
+
+
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="input-group">
+							<span class="input-group-addon input-group-addon-custom" id="sizing-addon2">Reference</span>
+    						{{ form.reference|add_class:"form-control"|attr:"placeholder:Reference" }}
+						</div>
+					</div>
+				</div>
+
+				<br />
+
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="input-group">
+							<span class="input-group-addon input-group-addon-custom" id="sizing-addon2">Notes</span>
+    						{{ form.notes|add_class:"form-control"|attr:"placeholder:Notes" }}
+						</div>
+					</div>
+				</div>
+
+				<br />
+
+
+				
+				<div class="submit">
+					<input class="submit_button btn btn-success" type="submit" name="submit" value="Save" />
+				</div>
+			</form>
+
+
+
+			{% if form.errors %}
+				{{form.errors}}
+			{% endif %}
+		
+		
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+

@@ -1,0 +1,89 @@
+{% extends "requests/base.html" %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="fixed-buttons">
+
+	{% if perms.requests.change_request %}
+			<a href="{% url 'requestsEdit' the_request.id %}" class="btn-circle btn-edit" title="" data-toggle="tooltip" data-original-title="Edit"><span class="glyphicon glyphicon-edit icons-style-inverse"></span></a>
+		
+	{% endif %}
+
+</div>
+
+<div class="panel panel-primary panel-custom-primary">
+	<div class="panel-heading">
+		Reference {{the_request.reference}}
+	</div>
+	<div class="panel-body">
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>Device</th>
+					<td>{{the_request.device}}</td>
+				</tr>
+				<tr>
+					<th>Brand</th>
+					<td>{{the_request.brand}}</td>
+				</tr>
+				<tr>
+					<th>Model</th>
+					<td>{{the_request.model}}</td>
+				</tr>
+				<tr>
+					<th>Technician</th>
+					<td>{{the_request.technician}}</td>
+				</tr>
+				<tr>
+					<th>Company</th>
+					<td>{{the_request.company}}</td>
+				</tr>
+				<tr>
+					<th>Request Date</th>
+					<td>{{the_request.request_date}}</td>
+				</tr>
+				<tr>
+					<th>Resolution Date</th>
+					<td>{{the_request.resolution_date}}</td>
+				</tr>
+				<tr>
+					<th>Employee</th>
+					<td>{{the_request.employee}}</td>
+				</tr>
+				<tr>
+					<th>Username</th>
+					<td>{{the_request.username}}</td>
+				</tr>
+				<tr>
+					<th>Department</th>
+					<td>{{the_request.department}}</td>
+				</tr>
+				<tr>
+					<th>Location</th>
+					<td>{{the_request.location}}</td>
+				</tr>
+				<tr>
+					<th>Notes</th>
+					<td>{{the_request.notes|linebreaks}}</td>
+				</tr>
+				<tr>
+					<th>Status</th>
+					<td>
+						<span class="coloured-circle" style="background-color: {{the_request.status.color}};"></span>
+					    <span>{{the_request.status}}</span>
+					</td>
+				</tr>
+				
+			</tbody>
+		</table>
+	</div>
+</div>
+
+
+
+
+
+{% endblock %}
+

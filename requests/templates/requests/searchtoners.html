@@ -1,0 +1,94 @@
+{% load static %}
+
+
+
+
+
+
+	<div class="panel-heading">
+			<h4>Requests</h4>
+	</div>
+
+	<div class="panel-body">
+			<table class="table-responsive table_custom_manage">
+				<thead>
+					<tr>
+						<th>Reference</th>
+						<th>Brand</th>
+						<th>Model</th>
+						<th>Company</th>
+						<th>Request Date</th>
+						<th>Resolution Date</th>
+						<th>Employee</th>
+						<th>Username</th>
+						<th>Department</th>
+						<th>Location</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody>
+						{% if requests %}
+						    {% for request in requests %}
+						    <tr>
+						    	<td>{{request.reference}}</td>
+						        <td>{{request.brand}}</td>
+						        <td>{{request.model}}</td>
+						        <td>{{request.company}}</td>
+						        <td>{{request.request_date|date:"M d, Y"}}</td>
+						        <td>{{request.resolution_date|date:"M d, Y"}}</td>
+						        <td>{{request.employee}}</td>
+						        <td>{{request.username}}</td>
+						        <td>{{request.department}}</td>
+						        <td>{{request.location}}</td>
+						        <td>
+						        	<span class="coloured-circle" style="background-color: {{request.status.color}};"></span>
+						        	<span>{{request.status}}</span>
+						        </td>
+						        <td><a href="{% url 'requestsView' request.id %}" class="manage_icons details_icon" title="" data-toggle="tooltip" data-html="true" data-original-title="{{request.notes|linebreaks}}<br />Click for more details"><span class="glyphicon glyphicon-list-alt icons-style"></span></a></td>
+						        {% if perms.requests.edit_toners %}
+						        	<td><a href="{% url 'tonersEdit' request.id %}" class="manage_icons edit_icon" title="" data-toggle="tooltip" data-original-title="Edit"><span class="glyphicon glyphicon-edit icons-style"></span></a></td>
+						        {% endif %}
+						    </tr>
+						    {% endfor %}
+						{% else %}
+						    <p>There is no Requests available</p>
+						{% endif %}
+						
+					
+				</tbody>
+			</table>
+
+			{% if requests.has_other_pages %}
+				<ul class="pagination">
+				    {% if requests.has_previous %}
+				     	<li><a href="?page={{ requests.previous_page_number }}">&laquo;</a></li>
+				    {% else %}
+				     	<li class="disabled"><span>&laquo;</span></li>
+				    {% endif %}
+				    {% for i in requests.paginator.page_range %}
+				    	{% if requests.number == i %}
+				    		<li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+				    	{% else %}
+				    		<li><a href="?page={{ i }}">{{ i }}</a></li>
+				    	{% endif %}
+				    {% endfor %}
+				    {% if requests.has_next %}
+				    	<li><a href="?page={{ requests.next_page_number }}">&raquo;</a></li>
+				    {% else %}
+				    	<li class="disabled"><span>&raquo;</span></li>
+				    {% endif %}
+				</ul>
+			{% endif %}
+
+
+			
+	</div>
+
+
+	<script type='text/javascript'>
+			$(document).ready(function(){
+			    $("tbody tr:odd").addClass("tr_odd");
+			    $("tbody tr:even").addClass("tr_even");			
+ 
+			});
+	</script>

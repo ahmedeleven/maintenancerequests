@@ -1,0 +1,207 @@
+{% load static %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Maintenance Requests</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	    <meta charset="UTF-8">
+
+	    <script type="text/javascript" src="{% static 'requests/js/jquery/jquery-1.10.2.min.js' %}"></script>
+
+	    <script type="text/javascript" src="{% static 'requests/js/jquery-ui/jquery-ui.min.js' %}"></script>
+
+	    <link rel="stylesheet" type="text/css" href="{% static 'requests/css/bootstrap.min.css' %}">
+
+	    <link rel="stylesheet" type="text/css" href="{% static 'requests/js/jquery-ui/jquery-ui.min.css' %}">
+
+	    <script type="text/javascript" src="{% static 'requests/js/bootstrap.min.js' %}"></script>
+
+	    <link rel="stylesheet" type="text/css" href="{% static 'requests/css/style.css' %}">
+	    <link rel="stylesheet" type="text/css" href="{% static 'requests/css/print.css' %}" media="print">
+	    <link rel="stylesheet" type="text/css" href="{% static 'requests/css/fontello/css/fontello.css' %}">
+
+	    <link rel="icon" type="image/svg+xml" sizes="any" href="{% static 'requests/img/logo.svg' %}">
+
+	    <link rel="stylesheet" type="text/css" href="{% static 'requests/js/select2/dist/css/select2.min.css' %}">
+
+	    <script type="text/javascript" src="{% static 'requests/js/select2/dist/js/select2.min.js' %}"></script>
+
+
+		<script type='text/javascript'>
+			$(document).ready(function(){
+			    $("tbody tr:odd").addClass("tr_odd");
+			    $("tbody tr:even").addClass("tr_even");			
+ 
+			});
+		</script>
+
+		<script type="text/javascript">
+			$( function() {
+			    $( "#search_request_date_from" ).datepicker({"dateFormat": "yy-mm-dd"});
+			    $( "#search_request_date_to" ).datepicker({"dateFormat": "yy-mm-dd"});
+			    $( "#id_request_date" ).datepicker({"dateFormat": "dd/mm/yy"});
+			    $( "#id_resolution_date" ).datepicker({"dateFormat": "dd/mm/yy"});
+			    $( "#search_resolution_date_from" ).datepicker({"dateFormat": "yy-mm-dd"});
+			    $( "#search_resolution_date_to" ).datepicker({"dateFormat": "yy-mm-dd"});
+			  } );
+		</script>
+
+		<script type='text/javascript'>
+			$(document).ready(function() {
+				$('[data-toggle="tooltip"]').tooltip();
+			});
+		</script>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('select').select2();
+			});
+		</script>
+
+
+		
+	</head>
+	<body role='document'>
+
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container-fluid">
+				<div class='navbar-header'>
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+							        <span class="icon-bar"></span>
+							        <span class="icon-bar"></span>
+							        <span class="icon-bar"></span>
+					</button>
+					
+				</div>
+
+				<div id="navbar" class="navbar-collapse collapse">
+					{% if user.is_authenticated %}
+						<ul class="nav navbar-nav">
+
+
+							
+							<li><a href="{% url 'homePage' %}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+
+							{% if perms.requests.view_requests %}
+							<li><a href="{% url 'requestsIndex' %}"><span class="glyphicon glyphicon-open"></span> Requests</a></li>
+							{% endif %}
+							{% if perms.requests.view_printers %}
+							<li><a href="{% url 'printersIndex' %}"><span class="glyphicon glyphicon-print"></span> Printers</a></li>
+							{% endif %}
+							{% if perms.requests.view_devices %}
+							<li><a href="{% url 'devicesIndex' %}"><span class="glyphicon glyphicon-hdd"></span> Devices</a></li>
+							{% endif %}
+							{% if perms.requests.view_brands %}
+							<li><a href="{% url 'brandsIndex' %}"><span class="glyphicon glyphicon-tag"></span> Brands</a></li>
+							{% endif %}
+							{% if perms.requests.view_buildings %}
+							<li><a href="{% url 'buildingsIndex' %}"><span class="glyphicon glyphicon-list"></span> Buildings</a></li>
+							{% endif %}
+							{% if perms.requests.view_departments %}
+							<li><a href="{% url 'departmentsIndex' %}"><span class="glyphicon glyphicon-list-alt"></span> Departments</a></li>
+							{% endif %}
+							{% if perms.requests.view_technicians %}
+							<li><a href="{% url 'techniciansIndex' %}"><span class="glyphicon glyphicon-wrench"></span> Technicians</a></li>
+							{% endif %}
+							{% if perms.requests.view_companies %}
+							<li><a href="{% url 'companiesIndex' %}"><span class="glyphicon glyphicon-globe"></span> Companies</a></li>
+							{% endif %}
+							{% if perms.requests.view_statuses %}
+							<li><a href="{% url 'statusesIndex' %}"><span class="glyphicon glyphicon-check"></span> Statuses</a></li>
+							{% endif %}
+
+							{% if user.is_superuser %}
+								<li><a href="{% url 'usersIndex' %}"><span class="icon-users"></span> Users</a></li>
+								<li><a href="{% url 'groupsIndex' %}"><span class="icon-group2"></span> Groups</a></li>
+							{% endif %}
+										
+
+						</ul>
+
+						<ul class="nav navbar-nav navbar-right">
+							<li class="dropdown">
+					          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{request.user.username}} <span class="caret"></span></a>
+					          <ul class="dropdown-menu">
+					            <li><a href="{% url 'changePassword' %}"><!--<span class="glyphicon glyphicon-asterisk"></span>--> Change Password</a></li>
+					            <li role="separator" class="divider"></li>
+					            <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+					          </ul>
+					      	</li>
+
+						</ul>
+					{% else %}
+
+
+						<ul class="nav navbar-nav navbar-right">
+
+							<li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+
+						</ul>
+
+					{% endif %}
+
+
+
+				</div>
+
+			</div>
+		</nav>
+		<div class="page-header">
+			<header class="sb-page-header">
+				<div class="container-fluid">
+
+					<div class="row">
+						<div class="col-md-6 col-xs-6">
+								<h1>Maintenance Requests</h1>
+								<h2 id="desc">MOE Requests Management System</h2>
+						</div>
+						<div class="col-xs-3 col-xs-offset-3 col-md-3 col-md-offset-3 sb-page-header-logo">
+							<img src="{% static 'requests/img/logo.svg' %}" class="img-responsive">
+						</div>
+					</div>
+					
+				</div>
+				
+				
+			</header>
+		</div>
+
+		
+
+
+
+		<div class='container theme-showcase dynamic-container' role='main'>
+				{% block content %}{% endblock %}
+		</div>
+
+
+		<div class="page-footer">
+			<div class="sb-page-footer">
+				<div class="row">
+					<div class="container col-md-12">
+						<h3>Information Systems Department</h3>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+
+
+		<footer>
+				<div class="container">
+					<hr />
+					<div class='row'>
+						<div class="col-lg-12 footer-below">
+
+							<p>&copy; Users Support Section | Department of Information Systems | Ministry of Education and High Education | All rights Reserved</p>
+						</div>
+						
+					</div>
+				</div>
+		</footer>	
+			
+	</body>
+
+</html>

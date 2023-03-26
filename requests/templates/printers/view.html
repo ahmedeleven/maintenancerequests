@@ -1,0 +1,74 @@
+{% extends "requests/base.html" %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="fixed-buttons">
+
+	{% if perms.requests.change_printer %}
+			<a href="{% url 'printersEdit' printer.id %}" class="btn-circle btn-edit" title="" data-toggle="tooltip" data-original-title="Edit"><span class="glyphicon glyphicon-edit icons-style-inverse"></span></a>
+		
+	{% endif %}
+
+</div>
+
+<div class="panel panel-primary panel-custom-primary">
+	<div class="panel-heading">
+		Reference {{printer.reference}}
+	</div>
+	<div class="panel-body">
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>Model</th>
+					<td>{{printer.model}}</td>
+				</tr>
+				<tr>
+					<th>Brand</th>
+					<td>{{printer.brand}}</td>
+				</tr>
+				<tr>
+					<th>Building</th>
+					<td>{{printer.building}}</td>
+				</tr>
+				<tr>
+					<th>Department</th>
+					<td>{{printer.department}}</td>
+				</tr>
+				<tr>
+					<th>Floor</th>
+					<td>{{printer.floor}}</td>
+				</tr>
+				<tr>
+					<th>Room</th>
+					<td>{{printer.room}}</td>
+				</tr>
+				<tr>
+					<th>IP</th>
+					<td>{{printer.ip}}</td>
+				</tr>
+				<tr>
+					<th>Barcode</th>
+					<td>{{printer.barcode}}</td>
+				</tr>
+				<tr>
+					<th>Reference</th>
+					<td>{{printer.reference}}</td>
+				</tr>
+				<tr>
+					<th>Notes</th>
+					<td>{{printer.notes|linebreaks}}</td>
+				</tr>
+				
+			</tbody>
+		</table>
+	</div>
+</div>
+
+
+
+
+
+{% endblock %}
+

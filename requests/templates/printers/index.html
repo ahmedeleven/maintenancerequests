@@ -1,0 +1,278 @@
+{% extends "requests/base.html" %}
+{% load static %}
+
+{% block content %}
+
+
+
+
+
+
+<div class="panel panel-primary panel-custom-primary">
+
+	<div class="panel-heading">
+		<h4>Search</h4>
+	</div>
+
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="input-group input search_form">
+					<span class="input-group-addon input-group-addon-custom" id="sizing-addon2"></span>
+					<input name="search_reference" type="text" class="form-control" placeholder="Reference" id="search_reference">
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="input-group input search_form">
+					<span class="input-group-addon input-group-addon-custom" id="sizing-addon2"></span>
+					<input name="search_barcode" type="text" class="form-control" placeholder="Barcode" id="search_barcode">
+				</div>
+			</div>
+		</div>
+
+		<br />
+
+
+
+		<div class="row">
+			<div class="col-md-6">
+				<div class="input-group input search_form">
+					<span class="input-group-addon input-group-addon-custom" id="sizing-addon2"></span>
+					<input name="search_model" type="text" class="form-control" placeholder="Model" id="search_model">
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="input-group input search_form">
+					<span class="input-group-addon input-group-addon-custom" id="sizing-addon2"></span>
+					<input name="search_floor" type="text" class="form-control" placeholder="Floor" id="search_floor">
+				</div>
+			</div>
+		</div>
+
+		<br />
+		
+
+
+		<div class="row">
+			<div class="col-md-6">
+				<div class="input-group input search_form">
+					<span class="input-group-addon input-group-addon-custom" id="sizing-addon2"></span>
+					<select name="search_building_name" class="form-control" placeholder="Building" id="search_building_name">
+						<option value="">Building</option>
+						{% for building in buildings_list %}
+							<option value="{{building}}">{{building}}</option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+
+
+			<div class="col-md-6">
+				<div class="input-group input search_form">
+					<span class="input-group-addon input-group-addon-custom" id="sizing-addon2"></span>
+					<select name="search_department_name" class="form-control" placeholder="Department" id="search_department_name">
+						<option value="">Department</option>
+						{% for department in departments_list %}
+							<option value="{{department}}">{{department}}</option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+	
+		</div>
+
+		<br />
+
+
+		
+	</div>
+</div>
+
+
+
+
+
+
+
+<div class="panel panel-default manage_container panel-custom-primary">
+
+	<div class="fixed-buttons">
+		{% if perms.requests.add_printer %}
+
+			<a href="{% url 'printersAdd' %}" class="btn-circle btn-add" title="" data-toggle="tooltip" data-original-title="Add Printer">
+				<span class="glyphicon glyphicon-plus icons-style-inverse"></span>
+			</a>
+		{% endif %}
+
+		{% if printers_ids_string %}
+			<a href="{% url 'printersExport' printers_ids_string %}" class="btn-circle btn-export" title="" data-toggle="tooltip" data-original-title="Export">
+					<span class="glyphicon glyphicon-export icons-style-inverse"></span>
+			</a>
+		{% endif %}
+
+
+	</div>
+
+	<div class="panel-heading">
+		<h4>Printers</h4>
+	</div>
+
+	<div class="panel-body">
+		<table class="table-responsive table_custom_manage">
+			<thead>
+				<tr>
+					<th>Model</th>
+					<th>Brand</th>
+					<th>Building</th>
+					<th>Department</th>
+					<th>Floor</th>
+					<th>Room</th>
+					<th>IP</th>
+					<th>Barcode</th>
+					<th>Reference</th>
+					<th>Notes</th>
+				</tr>
+			</thead>
+			<tbody>
+					{% if printers %}
+					    {% for printer in printers %}
+					    <tr>
+					    	<td>{{printer.model}}</td>
+					        <td>{{printer.brand}}</td>
+					        <td>{{printer.building}}</td>
+					        <td>{{printer.department}}</td>
+					        <td>{{printer.floor}}</td>
+					        <td>{{printer.room}}</td>
+					        <td>{{printer.ip}}</td>
+					        <td>{{printer.barcode}}</td>
+					        <td>{{printer.reference}}</td>
+					        <td><a href="{% url 'printersView' printer.id %}" class="manage_icons details_icon" title="" data-toggle="tooltip" data-html="true" data-original-title="{{printer.notes|linebreaks}}<br />Click for more details"><span class="glyphicon glyphicon-list-alt icons-style"></span></a></td>
+					        {% if perms.requests.change_printer %}
+					        	<td><a href="{% url 'printersEdit' printer.id %}" class="manage_icons edit_icon" title="" data-toggle="tooltip" data-original-title="Edit"><span class="glyphicon glyphicon-edit icons-style"></span></a></td>
+					        {% endif %}
+					        {% if perms.requests.delete_printer %}
+					        	<td><a href="{% url 'printersDelete' printer.id %}" class="manage_icons delete_icon" title="" data-toggle="tooltip" data-original-title="Delete"><span class="glyphicon glyphicon-trash icons-style"></span></a></td>
+					        {% endif %}
+					    </tr>
+					    {% endfor %}
+					{% else %}
+					    <p>There is no Printers available</p>
+					{% endif %}
+					
+				
+			</tbody>
+		</table>
+
+		{% if printers.has_other_pages %}
+			<ul class="pagination">
+			    {% if printers.has_previous %}
+			     	<li><a href="?page={{ printers.previous_page_number }}">&laquo;</a></li>
+			    {% else %}
+			     	<li class="disabled"><span>&laquo;</span></li>
+			    {% endif %}
+			    {% for i in printers.paginator.page_range %}
+			    	{% if printers.number == i %}
+			    		<li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+			    	{% else %}
+			    		<li><a href="?page={{ i }}">{{ i }}</a></li>
+			    	{% endif %}
+			    {% endfor %}
+			    {% if printers.has_next %}
+			    	<li><a href="?page={{ printers.next_page_number }}">&raquo;</a></li>
+			    {% else %}
+			    	<li class="disabled"><span>&raquo;</span></li>
+			    {% endif %}
+			</ul>
+		{% endif %}
+
+
+		
+	</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+	//var base_directory = "<?php echo $this->webroot; ?>";
+	
+	//alert(query);
+	var  in_action = false;
+	if(in_action == false) {
+		$('.search_form').keyup(function() {
+			in_action = true;
+			search_function();
+			
+		});
+
+		$('.search_form').change(function() {
+			in_action = true;
+			search_function();
+			
+		});
+	}
+
+
+
+
+	function search_function() {
+		var query = {
+			'reference' : $('#search_reference').val(),
+			'barcode' : $('#search_barcode').val(),
+			'model' : $('#search_model').val(),
+			'floor' : $('#search_floor').val(),
+			'building_name' : $('#search_building_name').val(),
+			'department_name' : $('#search_department_name').val(),
+		};
+
+		//alert(JSON.stringify(query));
+		$.ajax({
+		  	type: 'GET',
+			url: "{% url 'printersSearch' %}",
+			data: query,
+		    beforeSend: function() {
+		    	//$('.scout_confirm_message').html('');
+		    },
+		    success: function(data) {
+				$('.manage_container').html("");
+				$('.manage_container').html(data);
+				in_action = false;
+				//alert(data);
+				$('[data-toggle="tooltip"]').tooltip();
+		    },
+			error: function(e){
+				alert(e.status);
+			}
+		});
+	}
+	
+</script>
+
+
+<script type='text/javascript'>
+	function confirm_delete(message) {
+			$(document).ready(function() {
+				$('.delete_icon').click(function() {
+					if(confirm(message)) {
+
+					} else {
+						return false;
+					}
+				});	
+			});
+	}
+	confirm_delete('Are you sure you want to delete this printer ?');
+</script>
+
+
+
+{% endblock %}
+

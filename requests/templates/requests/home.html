@@ -1,0 +1,106 @@
+{% extends "requests/base.html" %}
+{% load static %}
+
+{% block content %}
+
+
+
+<div class="panel panel-default manage_container panel-custom-primary">
+
+	<div class="fixed-buttons">
+		<a href="{% url 'changePassword' %}" class="btn-circle btn-password" title="" data-toggle="tooltip" data-original-title="Change Password">
+			<span class="glyphicon glyphicon-asterisk icons-style-inverse"></span>
+		</a>
+
+	</div>
+
+	<!--<div class="panel-heading">
+		<h4>Requests</h4>
+	</div>-->
+
+	<div class="panel-body">
+		
+
+
+
+
+
+		<div class="row">
+
+			
+			{% if perms.requests.view_requests %}
+			<div class="col-xs-6 col-md-3 home-icons">
+				<a href="{% url 'requestsIndex' %}" class="thumbnail"><span class="glyphicon glyphicon-open"></span> <p>Requests </p></a>
+			</div>
+			{% endif %}
+
+			{% if perms.requests.view_printers %}
+			<div class="col-xs-6 col-md-3 home-icons">
+				<a href="{% url 'printersIndex' %}" class="thumbnail"><span class="glyphicon glyphicon-print"></span> <p>Printers </p></a>
+			</div>
+			{% endif %}
+
+			{% if perms.requests.view_devices %}
+			<div class="col-xs-6 col-md-3 home-icons">
+				<a href="{% url 'devicesIndex' %}" class="thumbnail"><span class="glyphicon glyphicon-hdd"></span> <p>Devices </p></a>
+			</div>
+			{% endif %}
+
+			{% if perms.requests.view_brands %}
+			<div class="col-xs-6 col-md-3 home-icons">
+				<a href="{% url 'brandsIndex' %}" class="thumbnail"><span class="glyphicon glyphicon-tag"></span> <p>Brands </p></a>
+			</div>
+			{% endif %}
+
+			{% if perms.requests.view_buildings %}
+			<div class="col-xs-6 col-md-3 home-icons">
+				<a href="{% url 'buildingsIndex' %}" class="thumbnail"><span class="glyphicon glyphicon-list"></span> <p>Buildings </p></a>
+			</div>
+			{% endif %}
+
+			{% if perms.requests.view_departments %}
+			<div class="col-xs-6 col-md-3 home-icons">
+				<a href="{% url 'departmentsIndex' %}" class="thumbnail"><span class="glyphicon glyphicon-list-alt"></span> <p>Departments </p></a>
+			</div>
+			{% endif %}
+
+			{% if perms.requests.view_technicians %}
+			<div class="col-xs-6 col-md-3 home-icons">
+				<a href="{% url 'techniciansIndex' %}" class="thumbnail"><span class="glyphicon glyphicon-wrench"></span> <p>Technicians </p></a>
+			</div>
+			{% endif %}
+
+			{% if perms.requests.view_companies %}
+			<div class="col-xs-6 col-md-3 home-icons">
+				<a href="{% url 'companiesIndex' %}" class="thumbnail"><span class="glyphicon glyphicon-globe"></span> <p>Companies </p></a>
+			</div>
+			{% endif %}
+
+			{% if perms.requests.view_statuses %}
+			<div class="col-xs-6 col-md-3 home-icons">
+				<a href="{% url 'statusesIndex' %}" class="thumbnail"><span class="glyphicon glyphicon-check"></span> <p>Statuses </p></a>
+			</div>
+			{% endif %}
+
+			
+
+			{% if user.is_superuser %}
+			<div class="col-xs-6 col-md-3 home-icons">
+				<a href="{% url 'usersIndex' %}" class="thumbnail"><span class="icon-users"></span> <p>Users </p></a>
+			</div>
+			<div class="col-xs-6 col-md-3 home-icons">
+				<a href="{% url 'groupsIndex' %}" class="thumbnail"><span class="icon-group2"></span> <p>Groups </p></a>
+			</div>
+			{% endif %}
+			
+		</div>
+		
+	</div>
+
+</div>
+
+{% endblock %}
+
+
+
+
