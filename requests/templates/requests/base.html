@@ -126,7 +126,13 @@
 					          <ul class="dropdown-menu">
 					            <li><a href="{% url 'changePassword' %}"><!--<span class="glyphicon glyphicon-asterisk"></span>--> Change Password</a></li>
 					            <li role="separator" class="divider"></li>
-					            <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+					            <li>
+					            	<!--<a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a>-->
+					            	<form action="{% url 'logout' %}" method="post">
+							        {% csrf_token %}
+							        	<button type="submit" class="btn btn-link"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
+							    	</form>
+					            </li>
 					          </ul>
 					      	</li>
 

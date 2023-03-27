@@ -907,3 +907,29 @@ footer .footer-below {
 .add_link {
 	margin-top: 0px;
 }
+
+
+.dropdown-menu>li>form>.btn-link {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+}
+
+
+
+.dropdown-menu>li>form:focus, .dropdown-menu>li>form:hover {
+    color: #262626;
+    text-decoration: none;
+    background-color: #f5f5f5;
+}
+
+
+.dropdown-menu>li>form>.btn-link:focus, .dropdown-menu>li>form>.btn-link:hover {
+    color: #262626;
+    text-decoration: none;
+    background-color: #f5f5f5;
+}
