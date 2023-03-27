@@ -67,4 +67,3 @@ python manage.py runserver
    ```
 
 That's it! You should now be able to view and interact with the project.
-Save the changes to the README.md file and close your text editor.
